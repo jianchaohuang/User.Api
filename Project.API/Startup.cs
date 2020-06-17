@@ -35,7 +35,7 @@ namespace Project.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            var migrationAssembly = typeof(ProjectContext).GetTypeInfo().Assembly.GetName().Name;
             services.AddDbContext<ProjectContext>(options =>
             {
                 options.UseMySQL(Configuration.GetConnectionString("MysqlProject")

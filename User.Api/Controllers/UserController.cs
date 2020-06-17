@@ -25,6 +25,7 @@ namespace User.Api.Controllers
             _capPublisher = capPublisher;
             _logger = logger;
         }
+
         private void RaiseUserprofileChangeEvent(model.AppUser user)
         {
             if (_userContext.Entry(user).Property(nameof(user.Name)).IsModified
