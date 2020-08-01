@@ -12,7 +12,7 @@ namespace Recommend.API.IntegrationEventHandlers
         [CapSubscribe("cap.test.queue")]
         public void CreateRecommendFromProject(ProjectCreatedIntegrationEvent @event)
         {
-
+            Console.WriteLine($"ProjectId:{@event.ProjectId},UserId:{@event.UserId}");
         }
     }
 }

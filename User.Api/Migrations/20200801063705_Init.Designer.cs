@@ -9,14 +9,14 @@ using User.Api.data;
 namespace User.Api.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20181201070050_Inti")]
-    partial class Inti
+    [Migration("20200801063705_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113");
 
             modelBuilder.Entity("User.Api.model.AppUser", b =>
                 {
@@ -54,6 +54,26 @@ namespace User.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("User.Api.model.BPFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AppUserId");
+
+                    b.Property<DateTime>("CreateTime");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FromatFilePath");
+
+                    b.Property<string>("OriginFilePath");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BPFiles");
                 });
 
             modelBuilder.Entity("User.Api.model.UserProperty", b =>

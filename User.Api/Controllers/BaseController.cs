@@ -9,7 +9,7 @@ namespace User.Api.Controllers
 {
     public class BaseController : Controller
     {
-        protected UserIdentity UserIdentity => new UserIdentity { UserId=1,Name="jesse"};
+        protected UserIdentity UserIdentity => new UserIdentity { UserId=1,Name="chaor"};
         //protected UserIdentity UserIdentity
         //{
         //    get

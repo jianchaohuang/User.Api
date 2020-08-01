@@ -49,21 +49,21 @@ namespace User.Api
                     //指定Topic exchange名称，不指定的话会用默认的
                     rb.ExchangeName = "cap.text.exchange";
                 });
-                x.UseDashboard();
-                x.UseDiscovery(d =>
-                {
-                    d.DiscoveryServerHostName = "localhost";
-                    d.DiscoveryServerPort = 8500;
-                    d.CurrentNodeHostName = "localhost";
-                    d.CurrentNodePort = 5800;
-                    d.NodeId = 1;
-                    d.NodeName = "CAP No.1 Node";
-                });
-                //设置处理成功的数据在数据库中保存的时间（秒），为保证系统新能，数据会定期清理。
-                x.SucceedMessageExpiredAfter = 24 * 3600;
+                //x.UseDashboard();
+                //x.UseDiscovery(d =>
+                //{
+                //    d.DiscoveryServerHostName = "localhost";
+                //    d.DiscoveryServerPort = 8500;
+                //    d.CurrentNodeHostName = "localhost";
+                //    d.CurrentNodePort = 5800;
+                //    d.NodeId = 1;
+                //    d.NodeName = "CAP No.1 Node";
+                //});
+                ////设置处理成功的数据在数据库中保存的时间（秒），为保证系统新能，数据会定期清理。
+                //x.SucceedMessageExpiredAfter = 24 * 3600;
 
-                //设置失败重试次数
-                x.FailedRetryCount = 5;
+                ////设置失败重试次数
+                //x.FailedRetryCount = 5;
             });
             services.AddMvc(options=>
             {

@@ -24,7 +24,7 @@ namespace Project.API.Applications.DomainEventHandlers
                 CreatedTime=DateTime.Now,
                 ProjectId=notification.Id
             };
-            _capPublisher.Publish("finbook.projectapi.projectcreated",@event);
+            _capPublisher.Publish("cap.test.queue", @event);
             return Task.CompletedTask;
         }
     }

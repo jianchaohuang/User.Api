@@ -41,14 +41,45 @@ namespace Project.API
                 options.UseMySQL(Configuration.GetConnectionString("MysqlProject")
                     ,sql=>sql.MigrationsAssembly(migrationAssembly));
             });
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(option=>
+            services.AddCap(x =>
+            {
+                x.UseEntityFramework<ProjectContext>();
+                //x.UseMySql("server=localhost;port=3306;database=beta_contact;userid=test;password=123456;");
+                x.UseRabbitMQ(rb =>
                 {
-                    option.RequireHttpsMetadata = false;
-                    option.Audience = "project_api";
-                    option.Authority = "http://localhost:49655";
+                    //rabbitmq服务器地址
+                    rb.HostName = "localhost";
+
+                    rb.UserName = "guest";
+                    rb.Password = "guest";
+
+                    //指定Topic exchange名称，不指定的话会用默认的
+                    rb.ExchangeName = "cap.text.exchange";
                 });
+                //x.UseDashboard();
+                //x.UseDiscovery(d =>
+                //{
+                //    d.DiscoveryServerHostName = "localhost";
+                //    d.DiscoveryServerPort = 8500;
+                //    d.CurrentNodeHostName = "localhost";
+                //    d.CurrentNodePort = 5802;
+                //    d.NodeId = 2;
+                //    d.NodeName = "CAP No.3 Node";
+                //});
+                ////设置处理成功的数据在数据库中保存的时间（秒），为保证系统新能，数据会定期清理。
+                //x.SucceedMessageExpiredAfter = 24 * 3600;
+
+                ////设置失败重试次数
+                //x.FailedRetryCount = 5;
+            });
+            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(option=>
+            //    {
+            //        option.RequireHttpsMetadata = false;
+            //        option.Audience = "project_api";
+            //        option.Authority = "http://localhost:49655";
+            //    });
             services.AddScoped<IRecommendService,TestRecommendService>()
                 .AddScoped<IProjectQueries,ProjectQueries>()
                 .AddScoped<IProjectRepository, ProjectReposity>(sp=> {
@@ -70,7 +101,8 @@ namespace Project.API
             {
                 app.UseHsts();
             }
-            app.UseAuthentication();
+            app.UseCap();
+            //app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -26,7 +26,7 @@ namespace Project.API.Controllers
         {
             if (project == null)
                 throw new ArgumentNullException(nameof(project));
-            project.UserId = UserIdentity.UserId;
+            //project.UserId = UserIdentity.UserId;
 
             var command = new CreateProjectCommand() {
                 Project =project

@@ -36,7 +36,7 @@ namespace Contact.API
             services.AddTransient<IUserProfileChangedEventHandler, UserProfileChangedEventHandler>();
 
             services.AddDbContext<CapContext>(options => 
-                options.UseMySql("Server=127.0.0.1;Database=beta_contact;UserId=test;Password=123456;"));
+                options.UseMySql("Server=127.0.0.1;Database=beta_contact;UserId=root;Password=123456;"));
 
             services.AddCap(x =>
             {

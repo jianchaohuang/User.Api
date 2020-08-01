@@ -9,14 +9,14 @@ using User.Api.data;
 namespace User.Api.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20181202065456_init")]
-    partial class init
+    [Migration("20200801062958_newInit")]
+    partial class newInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113");
 
             modelBuilder.Entity("User.Api.model.AppUser", b =>
                 {
@@ -90,8 +90,6 @@ namespace User.Api.Migrations
 
                     b.HasKey("Key", "AppUserId", "Value");
 
-                    b.HasIndex("AppUserId");
-
                     b.ToTable("UserProperties");
                 });
 
@@ -107,14 +105,6 @@ namespace User.Api.Migrations
                     b.HasKey("AppUserId", "Tag");
 
                     b.ToTable("UserTags");
-                });
-
-            modelBuilder.Entity("User.Api.model.UserProperty", b =>
-                {
-                    b.HasOne("User.Api.model.AppUser")
-                        .WithMany("Properties")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

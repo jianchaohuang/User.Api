@@ -3,10 +3,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace User.Api.Migrations
 {
-    public partial class Inti : Migration
+    public partial class newInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "BPFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    AppUserId = table.Column<int>(nullable: false),
+                    FileName = table.Column<string>(nullable: true),
+                    OriginFilePath = table.Column<string>(nullable: true),
+                    FromatFilePath = table.Column<string>(nullable: true),
+                    CreateTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BPFiles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserProperties",
+                columns: table => new
+                {
+                    AppUserId = table.Column<int>(nullable: false),
+                    Key = table.Column<string>(maxLength: 100, nullable: false),
+                    Text = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserProperties", x => new { x.Key, x.AppUserId, x.Value });
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -45,43 +76,21 @@ namespace User.Api.Migrations
                 {
                     table.PrimaryKey("PK_UserTags", x => new { x.AppUserId, x.Tag });
                 });
-
-            migrationBuilder.CreateTable(
-                name: "UserProperties",
-                columns: table => new
-                {
-                    AppUserId = table.Column<int>(nullable: false),
-                    Key = table.Column<string>(maxLength: 100, nullable: false),
-                    Text = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProperties", x => new { x.Key, x.AppUserId, x.Value });
-                    table.ForeignKey(
-                        name: "FK_UserProperties_Users_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserProperties_AppUserId",
-                table: "UserProperties",
-                column: "AppUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BPFiles");
+
+            migrationBuilder.DropTable(
                 name: "UserProperties");
 
             migrationBuilder.DropTable(
-                name: "UserTags");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "UserTags");
         }
     }
 }
