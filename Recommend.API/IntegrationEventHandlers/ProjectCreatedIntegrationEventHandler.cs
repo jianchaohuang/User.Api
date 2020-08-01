@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Recommend.API.IntegrationEventHandlers
 {
-    public class ProjectCreatedIntegrationEventHandler: ICapSubscribe
+    public class ProjectCreatedIntegrationEventHandler: IProjectCreatedIntegrationEventHandler, ICapSubscribe
     {
         [CapSubscribe("cap.test.queue")]
         public void CreateRecommendFromProject(ProjectCreatedIntegrationEvent @event)
