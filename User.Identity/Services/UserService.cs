@@ -7,6 +7,7 @@ using User.Identity.Dtos;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using BuildingBlocks.Resilience.Http;
+using zipkin4net.Transport.Http;
 
 namespace User.Identity.Services
 {
@@ -16,9 +17,9 @@ namespace User.Identity.Services
         private readonly string _userServiceUrl = "http://localhost:59931";
         private ILogger<UserService> _logger;
         private IHttpClient _identityClient;
-        public UserService(HttpClient httpClient, ILogger<UserService> logger, IHttpClient identityClient)
+        public UserService(/*HttpClient httpClient,*/ ILogger<UserService> logger, IHttpClient identityClient)
         {
-            _httpClient = httpClient;
+             _httpClient = new HttpClient(new TracingHandler("identity_api"));//添加zipkin跟踪
             _logger = logger;
             _identityClient = identityClient;
         }

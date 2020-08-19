@@ -51,7 +51,7 @@ namespace User.Identity
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
         {
             app.UseIdentityServer();
 
@@ -59,7 +59,7 @@ namespace User.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            RegisterZipkinTrace(app, loggerFactory, lifetime);
             app.UseMvc();
             
         }
@@ -76,7 +76,7 @@ namespace User.Identity
             {
                 TraceManager.SamplingRate = 1.0f;//记录数据密度，1.0代表全部记录
                 var logger = new TracingLogger(loggerFactory, "zipkin4net");//内存数据
-                var httpSender = new HttpZipkinSender("http://127.0.0.1:9411", "application/json");
+                var httpSender = new HttpZipkinSender("http://192.168.1.100:9411", "application/json");
 
                 var tracer = new ZipkinTracer(httpSender, new JSONSpanSerializer(), new Statistics());//注册zipkin
                 var consoleTracer = new zipkin4net.Tracers.ConsoleTracer();//控制台输出

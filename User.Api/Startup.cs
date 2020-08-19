@@ -37,7 +37,7 @@ namespace User.Api
             services.AddCap(x =>
             {
                 x.UseEntityFramework<UserContext>();
-                //x.UseMySql("server=localhost;port=3306;database=beta_user;userid=test;password=123456;");
+                //x.UseMySql("server=localhost;port=3306;database=beta_user;userid=test;password=123;");
                 x.UseRabbitMQ(rb =>
                 {
                     //rabbitmq服务器地址
@@ -49,21 +49,21 @@ namespace User.Api
                     //指定Topic exchange名称，不指定的话会用默认的
                     rb.ExchangeName = "cap.text.exchange";
                 });
-                //x.UseDashboard();
-                //x.UseDiscovery(d =>
-                //{
-                //    d.DiscoveryServerHostName = "localhost";
-                //    d.DiscoveryServerPort = 8500;
-                //    d.CurrentNodeHostName = "localhost";
-                //    d.CurrentNodePort = 5800;
-                //    d.NodeId = 1;
-                //    d.NodeName = "CAP No.1 Node";
-                //});
-                ////设置处理成功的数据在数据库中保存的时间（秒），为保证系统新能，数据会定期清理。
-                //x.SucceedMessageExpiredAfter = 24 * 3600;
+                x.UseDashboard();
+                x.UseDiscovery(d =>
+                {
+                    d.DiscoveryServerHostName = "localhost";
+                    d.DiscoveryServerPort = 8500;
+                    d.CurrentNodeHostName = "localhost";
+                    d.CurrentNodePort = 5800;
+                    d.NodeId = 1;
+                    d.NodeName = "CAP No.1 Node";
+                });
+                //设置处理成功的数据在数据库中保存的时间（秒），为保证系统新能，数据会定期清理。
+                x.SucceedMessageExpiredAfter = 24 * 3600;
 
-                ////设置失败重试次数
-                //x.FailedRetryCount = 5;
+                //设置失败重试次数
+                x.FailedRetryCount = 5;
             });
             services.AddMvc(options=>
             {
@@ -73,14 +73,15 @@ namespace User.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime lifetime)
         {
             
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCap();           
+            app.UseCap();
+            RegisterZipkinTrace(app, loggerFactory, lifetime);
             app.UseMvc();
             //InitUseDataBase(app);
         }
@@ -110,7 +111,7 @@ namespace User.Api
             {
                 TraceManager.SamplingRate = 1.0f;//记录数据密度，1.0代表全部记录
                 var logger = new TracingLogger(loggerFactory, "zipkin4net");//内存数据
-                var httpSender = new HttpZipkinSender("http://127.0.0.1:9411", "application/json");
+                var httpSender = new HttpZipkinSender("http://192.168.1.100:9411", "application/json");
 
                 var tracer = new ZipkinTracer(httpSender, new JSONSpanSerializer(), new Statistics());//注册zipkin
                 var consoleTracer = new zipkin4net.Tracers.ConsoleTracer();//控制台输出
