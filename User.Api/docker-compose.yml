@@ -1,22 +1,23 @@
-﻿version: '2'
- services:
-   db:
-     image: mysql
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: P2ssw0rd
-       MYSQL_DATABASE: ef
-       MYSQL_USER: ef
-       MYSQL_PASSWORD: P2ssw0rd
+﻿version: '3'
 
-   web:
-     build: .
-     depends_on:
-       - db
-     links:
-       - db
-     ports:
-       - "5000:5000"
-     restart: always
-     environment:
-     ASPNETCORE_ENVIRONMENT: Production
+services: 
+    db:
+        image: mysql
+        container_name: 'mysqldb'
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+        restart: always
+        ports: 
+          - '3306:3306'
+        environment:
+          MYSQL_ROOT_PASSWORD: 123
+          MYSQL_USER: chaor
+          MYSQL_PASSWORD: 123
+        volumes:
+          - /usr/docker/beta/mysql-init:/docker-entrypoint-initdb.d
+    web:
+        build: .
+        container_name: 'aspnetcore'
+        ports:
+          - '8003:80'
+        depends_on:
+          - db
