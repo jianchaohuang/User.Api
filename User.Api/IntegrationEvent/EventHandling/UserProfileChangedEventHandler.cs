@@ -7,12 +7,12 @@ using User.Api.IntegrationEvent.Events;
 
 namespace User.Api.IntegrationEvent.EventHandling
 {
-    public class UserProfileChangedEventHandler: IUserProfileChangedEventHandler,ICapSubscribe
+    public class UserProfileChangedEventHandler : IUserProfileChangedEventHandler, ICapSubscribe
     {
         [CapSubscribe("cap.test.queue")]
         public void CheckReceivedMessage(UserProfileChangeEvent user)
         {
-
+            Console.WriteLine(user.Name);
         }
     }
 }

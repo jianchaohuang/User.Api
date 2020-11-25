@@ -87,8 +87,8 @@ namespace User.Api.Controllers
             {
                 //指定发送的消息标题（供订阅）和内容
 
-                _userContext.Users.Add(new model.AppUser() { Name = "Foo", Avatar = "caige", Company = "huawei", Title = "saodi" });
-                _userContext.SaveChanges();
+                //_userContext.Users.Add(new model.AppUser() { Name = "Foo", Avatar = "caige", Company = "huawei", Title = "saodi" });
+                //_userContext.SaveChanges();
 
                 _capPublisher.Publish("cap.test.queue",
                    new UserProfileChangeEvent { Name = "Foo", Avatar = "caige", Company = "huawei", Title = "saodi", UserId = 1 });
@@ -106,5 +106,11 @@ namespace User.Api.Controllers
             _userContext.SaveChanges();
             return Json(user);
         }
+        ////控制方式和Service只能触发一种
+        //[CapSubscribe("cap.test.queue")]
+        //public async Task CheckReceivedMessage(UserProfileChangeEvent user)
+        //{
+        //    Console.WriteLine(user.Name);
+        //}
     }
 }
