@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using User.Api.data;
 using User.Api.Filters;
+using User.Api.IntegrationEvent.EventHandling;
 using zipkin4net;
 using zipkin4net.Middleware;
 using zipkin4net.Tracers.Zipkin;
@@ -34,6 +35,7 @@ namespace User.Api
             {
                 options.UseMySQL(Configuration.GetConnectionString("MysqlUser"));
             });
+            services.AddTransient<IUserProfileChangedEventHandler, UserProfileChangedEventHandler>();
             services.AddCap(x =>
             {
                 x.UseEntityFramework<UserContext>();
