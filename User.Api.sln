@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.Api", "User.Api\User.Api.csproj", "{2A734FB7-C617-4DCC-B63F-CDF8F6D6EAB0}"
 EndProject
@@ -29,7 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recommend.API", "Recommend.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C25DFD98-63E0-4CC3-B050-8C9108DC9AAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.API.UnitTests", "User.API.UnitTests\User.API.UnitTests.csproj", "{9520B47A-8C0F-4EBB-8A58-17213FFE6418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.API.UnitTests", "User.API.UnitTests\User.API.UnitTests.csproj", "{9520B47A-8C0F-4EBB-8A58-17213FFE6418}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schedule", "Schedule", "{18D0B508-5E89-4D61-8B9B-FE9FE4FAE50A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireService", "HangfireService\HangfireService.csproj", "{410DF6B7-E044-42AE-A8F6-BC1DCC4652AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireClient", "HangfireClient\HangfireClient.csproj", "{1D8BF3AA-1A5B-40AD-939E-47E177E8FBD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +83,14 @@ Global
 		{9520B47A-8C0F-4EBB-8A58-17213FFE6418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9520B47A-8C0F-4EBB-8A58-17213FFE6418}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9520B47A-8C0F-4EBB-8A58-17213FFE6418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{410DF6B7-E044-42AE-A8F6-BC1DCC4652AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{410DF6B7-E044-42AE-A8F6-BC1DCC4652AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{410DF6B7-E044-42AE-A8F6-BC1DCC4652AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{410DF6B7-E044-42AE-A8F6-BC1DCC4652AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8BF3AA-1A5B-40AD-939E-47E177E8FBD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8BF3AA-1A5B-40AD-939E-47E177E8FBD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8BF3AA-1A5B-40AD-939E-47E177E8FBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8BF3AA-1A5B-40AD-939E-47E177E8FBD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +102,8 @@ Global
 		{89C443CE-5EB1-4C22-84CB-C2DB4D35C80D} = {6B913617-8563-42D7-B4C4-1E23E1B9A34B}
 		{05021F4C-4BEA-486B-9EF8-AE452DB17AE6} = {6B913617-8563-42D7-B4C4-1E23E1B9A34B}
 		{9520B47A-8C0F-4EBB-8A58-17213FFE6418} = {C25DFD98-63E0-4CC3-B050-8C9108DC9AAD}
+		{410DF6B7-E044-42AE-A8F6-BC1DCC4652AA} = {18D0B508-5E89-4D61-8B9B-FE9FE4FAE50A}
+		{1D8BF3AA-1A5B-40AD-939E-47E177E8FBD7} = {18D0B508-5E89-4D61-8B9B-FE9FE4FAE50A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {404B349F-A477-4EE4-B464-2FB8ABFD6CF3}
